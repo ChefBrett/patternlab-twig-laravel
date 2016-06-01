@@ -40,17 +40,17 @@ class Patternlab extends Twig_Extension implements Twig_Extension_InitRuntimeInt
 
     public function getFunctions(){
         $config = (object)Config::get('patternlab');
-        return $this->loopDir(base_path() . '/' . $config->twig_ext_functions_path, 'Twig_SimpleFunction');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_functions_path . '/', 'Twig_SimpleFunction');
     }
 
     public function getTests(){
         $config = (object)Config::get('patternlab');
-        return $this->loopDir(base_path() . '/' . $config->twig_ext_tests_path, 'Twig_SimpleTest');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_tests_path . '/', 'Twig_SimpleTest');
     }
 
     public function getFilters(){
         $config = (object)Config::get('patternlab');
-        return $this->loopDir(base_path() . '/' . $config->twig_ext_filters_path, 'Twig_SimpleFilter');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_filters_path . '/', 'Twig_SimpleFilter');
     }
 
     public function getName(){
