@@ -52,3 +52,9 @@ and edit the new config in /config/twigbridge.php, insert the patternlab extensi
     ],
 ]
 ```
+
+# Resource pack
+
+to get everything working, you'll need some files and directories in the right place.
+
+Download the [Resource Pack](https://github.com/daspete/patternlab-twig-laravel-resources/archive/master.zip) and unzip the contents into the /resources/ folder.
