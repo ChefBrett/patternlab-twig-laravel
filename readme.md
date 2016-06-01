@@ -1,7 +1,9 @@
 # Requirements
 
 Laravel >= 5
+
 TwigBridge >= 0.7
+
 
 # Installation
 
@@ -16,14 +18,20 @@ Once you have installed the package, you need to register it and its dependencie
 add following lines to your 'providers' array:
 
 ```php
+'providers' => [
+    ...
     TwigBridge\ServiceProvider::class,
     Daspete\Laravel\ServiceProvider::class,
+]
 ```
 
 and add the TwigBridge Facade to your 'aliases' array:
 
 ```php
+'aliases' => [
+    ....
     'Twig' => TwigBridge\Facade\Twig::class,
+]
 ```
 
 after that, you need to publish the configs of this package and of the TwigBridge package:
