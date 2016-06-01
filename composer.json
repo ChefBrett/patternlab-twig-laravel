@@ -1,6 +1,6 @@
 {
     "name": "daspete/patternlab-twig-laravel",
-    "description": "Adds patterlab to laravel",
+    "description": "Adds patternlab behaviour to laravel",
     "license": "MIT",
     "authors": [
         {
