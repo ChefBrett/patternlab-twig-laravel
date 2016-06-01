@@ -16,12 +16,10 @@ use Config;
 
 class Patternlab extends Twig_Extension implements Twig_Extension_InitRuntimeInterface {
 
-    private $config;
-
     public function initRuntime(Twig_Environment $env){
         parent::initRuntime($env);
 
-        $this->config = (object)Config::get('patternlab');
+        $config = (object)Config::get('patternlab');
 
         $loader = $env->getLoader();
 
@@ -32,24 +30,27 @@ class Patternlab extends Twig_Extension implements Twig_Extension_InitRuntimeInt
             $loader->addLoader($origLoader);
         }
 
-        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $this->config->twig_ext_path));
-        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $this->config->layout_path));
-        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $this->config->views_path));
+        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->twig_ext_path));
+        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->layout_path));
+        $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->views_path));
         $loader->addLoader(new LabcoatLoader(new LabcoatPatternlab(Styleguide::getConfig())));
 
         $env->setLoader($loader);
     }
 
     public function getFunctions(){
-        return $this->loopDir(base_path() . '/' . $this->config->twig_ext_functions_path, 'Twig_SimpleFunction');
+        $config = (object)Config::get('patternlab');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_functions_path, 'Twig_SimpleFunction');
     }
 
     public function getTests(){
-        return $this->loopDir(base_path() . '/' . $this->config->twig_ext_tests_path, 'Twig_SimpleTest');
+        $config = (object)Config::get('patternlab');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_tests_path, 'Twig_SimpleTest');
     }
 
     public function getFilters(){
-        return $this->loopDir(base_path() . '/' . $this->config->twig_ext_filters_path, 'Twig_SimpleFilter');
+        $config = (object)Config::get('patternlab');
+        return $this->loopDir(base_path() . '/' . $config->twig_ext_filters_path, 'Twig_SimpleFilter');
     }
 
     public function getName(){
