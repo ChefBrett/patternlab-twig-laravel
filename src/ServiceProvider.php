@@ -19,7 +19,7 @@ class ServiceProvider extends ServiceProvider_Base {
     }
 
     protected function loadConfiguration(){
-        $configPath = __DIR__ . '../config/patternlab.php';
+        $configPath = __DIR__ . '/../config/patternlab.php';
 
         if(!$this->isLumen()){
             $this->publishes([ $configPath => config_path('patternlab.php') ], 'config');
