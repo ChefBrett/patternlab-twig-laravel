@@ -16,12 +16,12 @@ use Config;
 
 class Patternlab extends Twig_Extension implements Twig_Extension_InitRuntimeInterface {
 
-    public function initRuntime(Twig_Environment $env){
-        parent::initRuntime($env);
+    public function initRuntime(Twig_Environment $environment){
+        parent::initRuntime($environment);
 
         $config = (object)Config::get('patternlab');
 
-        $loader = $env->getLoader();
+        $loader = $environment->getLoader();
 
         if(!($loader instanceof Twig_Loader_Chain)){
             $origLoader = $loader;
@@ -33,9 +33,20 @@ class Patternlab extends Twig_Extension implements Twig_Extension_InitRuntimeInt
         $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->twig_ext_path));
         $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->layout_path));
         $loader->addLoader(new Twig_Loader_Filesystem(base_path() . '/' . $config->views_path));
-        $loader->addLoader(new LabcoatLoader(new LabcoatPatternlab(Styleguide::getConfig())));
 
-        $env->setLoader($loader);
+        $labcoatConfig = Styleguide::getConfig();
+        $patternlab = new LabcoatPatternlab($labcoatConfig);
+        $labcoatLoader = new LabcoatLoader($patternlab);
+
+        $loader->addLoader($labcoatLoader);
+
+        $environment->setLoader($loader);
+
+        $globalData = $patternlab->getGlobalData();
+
+        foreach($globalData as $key => $value){
+            $environment->addGlobal($key, $value);
+        }
     }
 
     public function getFunctions(){
